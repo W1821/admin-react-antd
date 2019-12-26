@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Avatar, Breadcrumb, Button, Dropdown, Icon, Layout, Menu, Progress} from 'antd';
+import {Avatar, Breadcrumb, Button, Dropdown, Icon, Layout, Menu} from 'antd';
 
 import './Main.css';
 
