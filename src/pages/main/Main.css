@@ -1,0 +1,65 @@
+.logo {
+    width: 140px;
+    height: 44px;
+    line-height: 44px;
+    background: url("../../images/logo.png") no-repeat;
+    background-size: 100% 100%;
+    margin: 10px 0 10px -20px;
+    float: left;
+}
+
+.header-menu {
+    line-height: 64px;
+    margin-left: 150px;
+}
+
+.user-info {
+    /*width: 300px;*/
+    height: 44px;
+    line-height: 44px;
+    margin: 16px 0 0 0;
+    float: right;
+    font-size: 24px;
+}
+
+.user-info .name {
+    float: left;
+    margin-right: 8px;
+    margin-top: -6px;
+    color: white;
+    font-size: 16px;
+}
+
+.user-info .avatar {
+    float: left;
+    margin-right: 8px;
+}
+
+.user-info .dropdown {
+    float: left;
+    width: 120px;
+}
+
+
+.left-menu {
+    box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+}
+
+.layout-content {
+    padding: 0 24px;
+}
+
+.breadcrumb {
+    margin: 10px 0;
+}
+
+.ant-layout-footer{
+    padding: 12px 50px
+}
+
+.footer {
+    text-align: center;
+}
+
+
+

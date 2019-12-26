@@ -1,0 +1,10 @@
+.icon-content{
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 60vh;
+    max-height: 60vh;
+}
+.icon-card-grid{
+    width: 10%;
+    text-align: center
+}
