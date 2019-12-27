@@ -5,7 +5,11 @@ export default class SessionStorageService {
     };
 
     static get = (key) => {
-        return JSON.parse(sessionStorage.getItem(key));
+        const value = sessionStorage.getItem(key);
+        if (!value) {
+            return null;
+        }
+        return JSON.parse(value);
     };
 
     static remove = (key) => {
