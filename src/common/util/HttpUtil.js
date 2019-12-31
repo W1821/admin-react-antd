@@ -46,12 +46,12 @@ const getOptions = (options) => {
                 ...newOptions.headers,
             };
             newOptions.body = JSON.stringify(newOptions.body);
-        } else {
-            newOptions.headers = {
-                Accept: 'application/json',
-                ...newOptions.headers,
-            };
         }
+    } else {
+        newOptions.headers = {
+            Accept: 'application/json',
+            ...newOptions.headers,
+        };
     }
     return newOptions;
 };

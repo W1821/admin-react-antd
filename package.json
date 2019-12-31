@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:8888",
+  "homepage": ".",
   "dependencies": {
     "antd": "^3.26.4",
     "antd-dayjs-webpack-plugin": "^0.0.7",
