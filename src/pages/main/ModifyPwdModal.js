@@ -58,4 +58,4 @@ class ModifyPwdModal extends Component {
 
 }
 
-export default Form.create()(ModifyPwdModal);
+export default Form.useForm(ModifyPwdModal);

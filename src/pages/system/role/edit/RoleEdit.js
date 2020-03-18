@@ -176,4 +176,4 @@ class RoleEdit extends Component {
     }
 }
 
-export default Form.create()(RoleEdit);
+export default Form.useForm(RoleEdit);

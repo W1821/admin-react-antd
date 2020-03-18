@@ -62,7 +62,7 @@ class MenuButtonModal extends Component {
         }
     };
 
-    handleOk = (e) => {
+    handleOk = () => {
         this.props.form.validateFields((err, values) => {
             if (err) {
                 return false;
@@ -119,4 +119,4 @@ class MenuButtonModal extends Component {
     }
 }
 
-export default Form.create()(MenuButtonModal);
+export default Form.useForm(MenuButtonModal);

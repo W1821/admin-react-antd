@@ -271,4 +271,4 @@ class MenuEdit extends Component {
     }
 }
 
-export default Form.create()(MenuEdit);
+export default Form.useForm(MenuEdit);

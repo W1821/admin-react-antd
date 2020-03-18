@@ -166,4 +166,4 @@ class UserEdit extends Component {
     }
 }
 
-export default Form.create()(UserEdit);
+export default Form.useForm(UserEdit);

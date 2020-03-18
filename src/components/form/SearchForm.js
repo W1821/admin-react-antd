@@ -52,4 +52,4 @@ class SearchForm extends React.Component {
     }
 }
 
-export default Form.create()(SearchForm);
+export default Form.useForm(SearchForm);
