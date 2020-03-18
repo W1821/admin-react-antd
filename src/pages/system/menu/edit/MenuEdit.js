@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import {Button, Divider, Form, Tag} from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Divider, Tag } from 'antd';
 import {EditModal} from '../../../../components';
 import MenuButtonModal from './MenuButtonModal';
 
@@ -221,7 +224,7 @@ class MenuEdit extends Component {
                 <Divider/>
 
                 <FormItem colon={false} label={' '}>
-                    <Button icon='plus' onClick={this.openButtonModal}>
+                    <Button icon={<PlusOutlined />} onClick={this.openButtonModal}>
                         添加按钮
                     </Button>
                 </FormItem>

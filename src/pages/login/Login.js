@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {Alert, Button, Checkbox, Col, Form, Layout, Row, Spin} from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Alert, Button, Checkbox, Col, Layout, Row, Spin } from 'antd';
 import {BasicForm} from '../../components';
 
 import './Login.css';

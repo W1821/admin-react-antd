@@ -1,5 +1,8 @@
 import React from 'react';
-import {Button, Form, Icon} from 'antd';
+import { DeleteOutlined, SearchOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button } from 'antd';
 import PropTypes from 'prop-types';
 import {BasicForm} from '../index';
 
@@ -40,11 +43,11 @@ class SearchForm extends React.Component {
                     <span>
                         <FormItem>
                             <Button type='primary' onClick={this.onClickSearch}>
-                                <Icon type="search"/>搜索
+                                <SearchOutlined />搜索
                             </Button>
                         </FormItem>
                         <FormItem>
-                           <Button onClick={this.reset}><Icon type="delete"/>重置</Button>
+                           <Button onClick={this.reset}><DeleteOutlined />重置</Button>
                         </FormItem>
                     </span>
             </BasicForm>

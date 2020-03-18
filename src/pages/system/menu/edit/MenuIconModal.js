@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Button, Card, Icon, Modal, Tabs} from 'antd';
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { Button, Card, Modal, Tabs } from 'antd';
 
 import './MenuIconModal.css';
 
@@ -60,7 +61,7 @@ class MenuIconModal extends Component {
                                         key={icon}
                                         onClick={() => this.selectIcon(icon)}
                                         className='icon-card-grid'>
-                                        <Icon type={icon}/>
+                                        <LegacyIcon type={icon}/>
                                     </Card.Grid>
                                 )
                             )}

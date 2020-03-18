@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {Form, TreeSelect} from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { TreeSelect } from 'antd';
 
 import './UserEdit.css';
 

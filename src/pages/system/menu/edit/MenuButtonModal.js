@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import {Divider, Form, Icon, Modal, Radio} from 'antd';
+import { DeleteOutlined, EditOutlined, MenuOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Divider, Modal, Radio } from 'antd';
 
 import './MenuButtonModal.css';
 
@@ -103,11 +106,11 @@ class MenuButtonModal extends Component {
                         defaultValue={options[0]}
                         onChange={event => this.changeButtonType(event.target.value)}
                         value={this.state.buttonType}>
-                        <Radio.Button value="search-查询"><Icon type="search"/>查询</Radio.Button>
-                        <Radio.Button value="add-增加"><Icon type="plus"/>增加</Radio.Button>
-                        <Radio.Button value="edit-编辑"><Icon type="edit"/>编辑</Radio.Button>
-                        <Radio.Button value="delete-删除"><Icon type="delete"/>删除</Radio.Button>
-                        <Radio.Button value="other-其他"><Icon type="menu"/>其他</Radio.Button>
+                        <Radio.Button value="search-查询"><SearchOutlined />查询</Radio.Button>
+                        <Radio.Button value="add-增加"><PlusOutlined />增加</Radio.Button>
+                        <Radio.Button value="edit-编辑"><EditOutlined />编辑</Radio.Button>
+                        <Radio.Button value="delete-删除"><DeleteOutlined />删除</Radio.Button>
+                        <Radio.Button value="other-其他"><MenuOutlined />其他</Radio.Button>
                     </Radio.Group>
                 </div>
                 <Divider/>

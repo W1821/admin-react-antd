@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Button, Divider, Icon, Popconfirm,} from 'antd';
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { Button, Divider, Popconfirm } from 'antd';
 import PropTypes from 'prop-types';
 
 class TableOperationColumn extends Component {
@@ -43,7 +44,7 @@ class TableOperationColumn extends Component {
             <Button
                 key={key}
                 type={opt.buttonType}
-                icon={opt.icon}
+                icon={<LegacyIcon type={opt.icon} />}
                 onClick={() => opt.option(record)}
             >
                 {opt.title}
@@ -60,7 +61,7 @@ class TableOperationColumn extends Component {
                 okText="是"
                 cancelText="否"
             >
-                <Button type={opt.buttonType} icon={opt.icon}>{opt.title}</Button>
+                <Button type={opt.buttonType} icon={<LegacyIcon type={opt.icon} />}>{opt.title}</Button>
             </Popconfirm>
         );
     };
@@ -74,7 +75,7 @@ class TableOperationColumn extends Component {
                     opt.option(record);
                 }}
             >
-                <Icon key={'pointer' + opt.title} type={opt.icon}/>{opt.title}
+                <LegacyIcon key={'pointer' + opt.title} type={opt.icon}/>{opt.title}
             </div>
         );
     };

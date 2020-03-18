@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {Avatar, Breadcrumb, Button, Dropdown, Icon, Layout, Menu} from 'antd';
+import { DownOutlined, LogoutOutlined, UnlockOutlined, UserOutlined } from '@ant-design/icons';
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { Avatar, Breadcrumb, Button, Dropdown, Layout, Menu } from 'antd';
 
 import './Main.css';
 
@@ -225,9 +227,9 @@ class Main extends Component {
         return (
             <div className='user-info'>
                 <div className='name'>欢迎您！{userInfo.userName}</div>
-                <Avatar src={userInfo ? userInfo.headPictureUrl : ''} className='avatar' icon='user'/>
+                <Avatar src={userInfo ? userInfo.headPictureUrl : ''} className='avatar' icon={<UserOutlined />}/>
                 <Dropdown className='dropdown' overlay={this.createUserInfoDropdownMenu()}>
-                    <Button>更多操作<Icon type="down"/></Button>
+                    <Button>更多操作<DownOutlined /></Button>
                 </Dropdown>
             </div>
         );
@@ -236,8 +238,8 @@ class Main extends Component {
     createUserInfoDropdownMenu = () => {
         return (
             <Menu onClick={this.onClickTopRightMenu}>
-                <Menu.Item key="1"><Icon type="unlock"/>修改密码</Menu.Item>
-                <Menu.Item key="2"><Icon type="logout"/>退出</Menu.Item>
+                <Menu.Item key="1"><UnlockOutlined />修改密码</Menu.Item>
+                <Menu.Item key="2"><LogoutOutlined />退出</Menu.Item>
             </Menu>
         );
     };
@@ -257,7 +259,7 @@ class Main extends Component {
                       mode='horizontal'>
                     {
                         headerMenu.treeData.map(menu => {
-                            return <Menu.Item key={menu.id}><Icon type={menu.icon}/>{menu.menuName}</Menu.Item>;
+                            return <Menu.Item key={menu.id}><LegacyIcon type={menu.icon}/>{menu.menuName}</Menu.Item>;
                         })
                     }
                 </Menu>
@@ -276,7 +278,7 @@ class Main extends Component {
 
             const leftSubMenu = leftMenu.treeData
                 .map((item) => {
-                    const title = <span><Icon type={item.icon}/>{item.menuName}</span>;
+                    const title = <span><LegacyIcon type={item.icon}/>{item.menuName}</span>;
                     const children = item.children
                         .map(menu => <Menu.Item key={menu.id}>{menu.menuName}</Menu.Item>);
                     return <SubMenu key={item.id} title={title} children={children}/>;

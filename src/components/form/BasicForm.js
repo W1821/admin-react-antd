@@ -1,5 +1,7 @@
 import React from 'react';
-import {Cascader, Checkbox, DatePicker, Form, Icon, Input, Radio, Select, TimePicker} from 'antd';
+import { Form, Icon as LegacyIcon } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Cascader, Checkbox, DatePicker, Input, Radio, Select, TimePicker } from 'antd';
 import PropTypes from 'prop-types';
 
 const {TextArea, Search} = Input;
@@ -33,11 +35,11 @@ class BasicForm extends React.Component {
         const {type, inputType, inputId, placeholder, icon, options, loadData, onChange, onSearch} = field;
         switch (type) {
             case 'input':
-                return <Input type={inputType} id={inputId} prefix={<Icon type={icon}/>} placeholder={placeholder}/>;
+                return <Input type={inputType} id={inputId} prefix={<LegacyIcon type={icon}/>} placeholder={placeholder}/>;
             case 'search':
                 return (
                     <Search
-                        prefix={icon ? <Icon type={icon}/> : null}
+                        prefix={icon ? <LegacyIcon type={icon}/> : null}
                         placeholder={placeholder}
                         onSearch={value => {
                             if (onSearch && typeof onSearch === 'function') {

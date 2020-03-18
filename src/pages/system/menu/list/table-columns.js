@@ -1,5 +1,6 @@
 import React from "react";
-import {Icon, Tag} from "antd";
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { Tag } from "antd";
 import {Link} from "react-router-dom";
 
 const columns = [
@@ -13,7 +14,7 @@ const columns = [
         title: '图标',
         render: (text, record, index) => {
             if (text) {
-                return <Icon key={index} type={text}/>
+                return <LegacyIcon key={index} type={text}/>;
             }
         }
     },

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Icon, Modal, Upload} from 'antd';
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { Modal, Upload } from 'antd';
 
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
@@ -88,7 +89,7 @@ class ImageCropperUpload extends Component {
     render() {
         const uploadButton = (
             <div>
-                <Icon type={this.state.avatarLoading ? 'loading' : 'plus'}/>
+                <LegacyIcon type={this.state.avatarLoading ? 'loading' : 'plus'}/>
                 <div>上传</div>
             </div>
         );

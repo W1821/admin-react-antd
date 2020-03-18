@@ -5,7 +5,8 @@
   "proxy": "http://localhost:8888",
   "homepage": ".",
   "dependencies": {
-    "antd": "^4.0.3",
+    "antd": "^4.0.0",
+    "@ant-design/compatible": "^1.0.0",
     "antd-dayjs-webpack-plugin": "^0.0.9",
     "babel-plugin-import": "^1.13.0",
     "customize-cra": "^0.9.1",

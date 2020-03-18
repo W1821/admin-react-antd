@@ -1,4 +1,5 @@
 import React from 'react';
+import { UserOutlined } from '@ant-design/icons';
 import {Avatar, Tag} from 'antd';
 
 const columns = [
@@ -6,7 +7,7 @@ const columns = [
         dataIndex: 'headPictureUrl',
         title: '头像',
         render: (text) => {
-            return <Avatar icon='user' src={text}/>;
+            return <Avatar icon={<UserOutlined />} src={text}/>;
         }
     },
     {
@@ -36,7 +37,7 @@ const columns = [
     {
         dataIndex: 'roles',
         title: '角色',
-        render: (text, record, index) => {
+        render: (text) => {
             return text.map((role, key) => <Tag key={key} color="green">{role.roleName}</Tag>);
         }
     },
