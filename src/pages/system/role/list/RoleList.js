@@ -67,7 +67,7 @@ class RoleList extends Component {
     };
 
     getDefaultOperationColumn = () => {
-        const options = [];
+        let options = [];
         if (this.state.authButtons.edit) {
             options.push({
                 icon: 'edit',

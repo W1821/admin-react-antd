@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
-import { TreeSelect } from 'antd';
+import {Form, TreeSelect} from 'antd';
 
 import './RoleEdit.css';
 
@@ -17,7 +15,7 @@ import {Role} from '../role.model';
 
 const FormItem = Form.Item;
 
-class RoleEdit extends Component {
+export default class RoleEdit extends Component {
 
     static propTypes = {
         saveSuccess: PropTypes.func,
@@ -29,6 +27,8 @@ class RoleEdit extends Component {
         formFieldList: [],
         role: new Role(),
     };
+
+    formRef = React.createRef();
 
     componentDidMount() {
         // 让父组件可以调用方法,父组件必须有props：onFef，否则报错
@@ -78,16 +78,13 @@ class RoleEdit extends Component {
             fieldsValue[field.key] = role[field.key];
         });
         const values = this.createTreeSelectValues(role);
-        this.props.form.setFieldsValue({menuButtonNode: values, ...fieldsValue});
+        this.formRef.current.setFieldsValue({menuButtonNode: values, ...fieldsValue});
     };
 
     openModal = () => {
         this.editModalRef.openModal();
     };
 
-    /**
-     * 保存
-     */
     save = (values) => {
         const body = this.getRequestBody(values);
         let promise;
@@ -116,11 +113,11 @@ class RoleEdit extends Component {
             if (!menu) {
                 return;
             }
-            values.push({value: id, label: menu.menuName, halfChecked: []});
+            values.push(id);
             buttons.forEach(bid => {
                 const button = (menu.buttons || []).find(b => b.id + '-btn' === bid);
                 if (button) {
-                    values.push({value: bid, label: button.menuName, halfChecked: []});
+                    values.push(bid);
                 }
             });
         });
@@ -150,17 +147,16 @@ class RoleEdit extends Component {
     };
 
     render() {
-        const {getFieldDecorator} = this.props.form;
         return (
             <EditModal
+                ref={this.formRef}
                 {...this.props}
                 onRef={ref => this.editModalRef = ref}
                 formFields={formFields}
                 saveCallback={this.save}
             >
-                <FormItem label='角色权限'>
+                <FormItem label='角色权限' name='menuButtonNode'>
                     {
-                        getFieldDecorator('menuButtonNode')
                         (
                             <TreeSelect
                                 treeData={this.state.treeData}
@@ -178,4 +174,3 @@ class RoleEdit extends Component {
     }
 }
 
-export default Form.useForm(RoleEdit);

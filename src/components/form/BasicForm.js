@@ -1,7 +1,7 @@
 import React from 'react';
-import { Form, Icon as LegacyIcon } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
-import { Cascader, Checkbox, DatePicker, Input, Radio, Select, TimePicker } from 'antd';
+import {Form} from 'antd';
+import { Icon } from '@ant-design/compatible';
+import {Cascader, Checkbox, DatePicker, Input, Radio, Select, TimePicker} from 'antd';
 import PropTypes from 'prop-types';
 
 const {TextArea, Search} = Input;
@@ -23,7 +23,11 @@ class BasicForm extends React.Component {
         showLabel: PropTypes.bool,
     };
 
+    formRef = React.createRef();
+
     componentDidMount() {
+        // 让父组件可以调用方法,父组件必须有props：onFef，否则报错
+        // this.props.onRef(this);
     }
 
     componentWillUnmount() {
@@ -31,15 +35,28 @@ class BasicForm extends React.Component {
         };
     }
 
+    setFieldsValue = (value) => {
+        this.formRef.current.setFieldsValue(value);
+    };
+
+    validateFields = () => {
+        return this.formRef.current.validateFields();
+    };
+
+    resetFields = () => {
+        this.formRef.current.resetFields();
+    };
+
     createComponentByField = field => {
         const {type, inputType, inputId, placeholder, icon, options, loadData, onChange, onSearch} = field;
         switch (type) {
             case 'input':
-                return <Input type={inputType} id={inputId} prefix={<LegacyIcon type={icon}/>} placeholder={placeholder}/>;
+                return <Input type={inputType} id={inputId} prefix={<Icon type={icon}/>}
+                              placeholder={placeholder}/>;
             case 'search':
                 return (
                     <Search
-                        prefix={icon ? <LegacyIcon type={icon}/> : null}
+                        prefix={icon ? <Icon type={icon}/> : null}
                         placeholder={placeholder}
                         onSearch={value => {
                             if (onSearch && typeof onSearch === 'function') {
@@ -101,16 +118,16 @@ class BasicForm extends React.Component {
     };
 
     getFields() {
-        const {getFieldDecorator} = this.props.form;
         const {formFields, showLabel = true} = this.props;
         return (formFields || [])
             .filter(field => field.type)
             .map(field => (
                 <FormItem
                     key={'item' + field.key}
-                    label={showLabel ? field.label : undefined}>
+                    label={showLabel ? field.label : undefined}
+                    name={field.key}
+                    rules={field.rules}>
                     {
-                        getFieldDecorator(field.key, {rules: field.rules,})
                         (this.createComponentByField(field))
                     }
                 </FormItem>
@@ -121,7 +138,7 @@ class BasicForm extends React.Component {
         const {layout, formItemLayout} = this.props;
         const itemLayout = formItemLayout ? formItemLayout : defaultFormItemLayout;
         return (
-            <Form layout={layout} {...itemLayout}>
+            <Form ref={this.formRef} layout={layout} {...itemLayout}>
                 {this.getFields()}
                 {this.props.children}
             </Form>

@@ -7,7 +7,7 @@ const fields = [
 
     },
     {
-        icon: 'user',
+        icon: 'phone',
         key: 'phoneNumber',
         type: 'input',
         placeholder: '请输入手机号码',

@@ -17,6 +17,8 @@ class EditModal extends Component {
         showModal: false,
     };
 
+    formRef = React.createRef();
+
     componentDidMount() {
         // 让父组件可以调用openModal方法,父组件必须有props：onFef，否则报错
         this.props.onRef(this);
@@ -31,31 +33,34 @@ class EditModal extends Component {
         this.setState({showModal: true});
     };
 
+    setFieldsValue = (value) => {
+        this.formRef.current.setFieldsValue(value);
+    };
+
     clickOk = () => {
         // 先验证
-        this.props.form.validateFields((err, values) => {
-            if (err) {
-                return false;
-            }
-            // 开始转圈
-            this.setState({isLoading: true});
-            // 调用回调方法
-            this.props.saveCallback(values).then((success) => {
-                // 取消转圈
-                this.setState({isLoading: false});
-                if (success) {
-                    NotificationService.success('保存成功');
-                    this.clickCancel();
-                }
-            });
-        });
+        this.formRef.current.validateFields()
+            .then(values => {
+                // 开始转圈
+                this.setState({isLoading: true});
+                // 调用回调方法
+                this.props.saveCallback(values).then((success) => {
+                    // 取消转圈
+                    this.setState({isLoading: false});
+                    if (success) {
+                        NotificationService.success('保存成功');
+                        this.clickCancel();
+                    }
+                });
+            })
+            .catch(e => null);
     };
 
     /**
      * 关闭弹窗
      */
     clickCancel = () => {
-        this.props.form.resetFields();
+        this.formRef.current.resetFields();
         this.setState({showModal: false});
     };
 
@@ -79,7 +84,7 @@ class EditModal extends Component {
                 maskClosable={false}
                 okText='确认'
                 cancelText='取消'>
-                <BasicForm {...this.props}>
+                <BasicForm ref={this.formRef} {...this.props}>
                     {children}
                 </BasicForm>
             </Modal>

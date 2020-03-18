@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import { DeleteOutlined, EditOutlined, MenuOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
-import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
-import { Divider, Modal, Radio } from 'antd';
+import {DeleteOutlined, EditOutlined, MenuOutlined, PlusOutlined, SearchOutlined} from '@ant-design/icons';
+import {Divider, Modal, Radio} from 'antd';
 
 import './MenuButtonModal.css';
 
@@ -14,7 +12,7 @@ import PropTypes from 'prop-types';
 
 const options = ['search-查询', 'add-增加', 'edit-编辑', 'delete-删除', 'other-其他'];
 
-class MenuButtonModal extends Component {
+export default class MenuButtonModal extends Component {
 
     static propTypes = {
         onClickOk: PropTypes.func,
@@ -26,6 +24,8 @@ class MenuButtonModal extends Component {
         buttonType: null,
         index: null,
     };
+
+    formRef = React.createRef();
 
     isFirstOpen = true;
 
@@ -59,36 +59,35 @@ class MenuButtonModal extends Component {
                 code: button.code,
                 actions: button.actions
             };
-            this.props.form.setFieldsValue(values);
+            this.formRef.current.setFieldsValue(values);
         } else {
             this.changeButtonType(options[0]);
         }
     };
 
     handleOk = () => {
-        this.props.form.validateFields((err, values) => {
-            if (err) {
-                return false;
-            }
-            // 返回编辑的按钮
-            const button = new Button(values);
-            button.id = this.state.button.id;
-            this.props.onClickOk(this.state.index, button).then(success => {
-                if (success) {
-                    this.handleCancel();
-                }
-            });
-        });
+        this.formRef.current.validateFields()
+            .then(values => {
+                // 返回编辑的按钮
+                const button = new Button(values);
+                button.id = this.state.button.id;
+                this.props.onClickOk(this.state.index, button).then(success => {
+                    if (success) {
+                        this.handleCancel();
+                    }
+                });
+            })
+            .catch(e => null);
     };
 
     handleCancel = () => {
         this.setState({modalVisible: false, index: null, button: new Button()});
-        this.props.form.resetFields();
+        this.formRef.current.resetFields();
     };
 
     changeButtonType = (buttonType) => {
         const arr = buttonType.split('-');
-        this.props.form.setFieldsValue({buttonName: arr[1], code: arr[0]});
+        this.formRef.current.setFieldsValue({buttonName: arr[1], code: arr[0]});
         this.setState({buttonType});
     };
 
@@ -106,20 +105,19 @@ class MenuButtonModal extends Component {
                         defaultValue={options[0]}
                         onChange={event => this.changeButtonType(event.target.value)}
                         value={this.state.buttonType}>
-                        <Radio.Button value="search-查询"><SearchOutlined />查询</Radio.Button>
-                        <Radio.Button value="add-增加"><PlusOutlined />增加</Radio.Button>
-                        <Radio.Button value="edit-编辑"><EditOutlined />编辑</Radio.Button>
-                        <Radio.Button value="delete-删除"><DeleteOutlined />删除</Radio.Button>
-                        <Radio.Button value="other-其他"><MenuOutlined />其他</Radio.Button>
+                        <Radio.Button value="search-查询"><SearchOutlined/>查询</Radio.Button>
+                        <Radio.Button value="add-增加"><PlusOutlined/>增加</Radio.Button>
+                        <Radio.Button value="edit-编辑"><EditOutlined/>编辑</Radio.Button>
+                        <Radio.Button value="delete-删除"><DeleteOutlined/>删除</Radio.Button>
+                        <Radio.Button value="other-其他"><MenuOutlined/>其他</Radio.Button>
                     </Radio.Group>
                 </div>
                 <Divider/>
 
-                <BasicForm formFields={formFields} {...this.props}/>
+                <BasicForm ref={this.formRef} formFields={formFields} {...this.props}/>
 
             </Modal>
         );
     }
 }
 
-export default Form.useForm(MenuButtonModal);

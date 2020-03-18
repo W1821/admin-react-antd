@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
-import { Modal } from 'antd';
+import {Modal} from 'antd';
 import {BasicForm} from '../../components';
 
 import './ModifyPwdModal.css';
@@ -11,11 +9,13 @@ import mainService from './main.service';
 
 import formFields from './modify-pwd.form-fields';
 
-class ModifyPwdModal extends Component {
+export default class ModifyPwdModal extends Component {
 
     state = {
         modalVisible: false,
     };
+
+    formRef = React.createRef();
 
     componentDidMount() {
         this.props.onRef(this);
@@ -26,20 +26,19 @@ class ModifyPwdModal extends Component {
     };
 
     clickOk = () => {
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
+        this.formRef.current.validateFields()
+            .then(values => {
                 mainService.modifyPwd(values).then(res => {
                     if (res) {
                         NotificationService.success('修改成功');
                         this.clickCancel();
                     }
                 });
-            }
-        });
+            }).catch(e => null);
     };
 
     clickCancel = () => {
-        this.props.form.resetFields();
+        this.formRef.current.resetFields();
         this.setState({modalVisible: false});
     };
 
@@ -52,12 +51,10 @@ class ModifyPwdModal extends Component {
                 width={'40%'}
                 title='选择图标'>
 
-                <BasicForm formFields={formFields} {...this.props}/>
+                <BasicForm ref={this.formRef} formFields={formFields} {...this.props}/>
 
             </Modal>
         );
     }
 
 }
-
-export default Form.useForm(ModifyPwdModal);

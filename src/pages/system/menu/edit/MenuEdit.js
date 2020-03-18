@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
-import { Button, Divider, Tag } from 'antd';
+import {PlusOutlined} from '@ant-design/icons';
+import {Button, Divider, Form, Tag} from 'antd';
 import {EditModal} from '../../../../components';
 import MenuButtonModal from './MenuButtonModal';
 
@@ -19,7 +17,7 @@ import MenuIconModal from './MenuIconModal';
 
 const FormItem = Form.Item;
 
-class MenuEdit extends Component {
+export default class MenuEdit extends Component {
 
     static propTypes = {
         saveSuccess: PropTypes.func,
@@ -30,6 +28,8 @@ class MenuEdit extends Component {
         menuArray: [],
         showAddButton: false,
     };
+
+    formRef = React.createRef();
 
     isFirstOpen = true;
 
@@ -95,10 +95,10 @@ class MenuEdit extends Component {
         // 增加下级，给上级下拉选赋值
         if (this.isFirstOpen) {
             // 增加菜单,延迟设置
-            setTimeout(() => this.props.form.setFieldsValue({pid: id}), 100);
+            setTimeout(() => this.formRef.current.setFieldsValue({pid: id}), 100);
             this.isFirstOpen = false;
         } else {
-            this.props.form.setFieldsValue({pid: id});
+            this.formRef.current.setFieldsValue({pid: id});
         }
         this.onPidChange(id);
     };
@@ -119,7 +119,7 @@ class MenuEdit extends Component {
                     }
                 });
                 const menuIds = menu.menuIds;
-                this.props.form.setFieldsValue({menuIds, ...fieldsValue});
+                this.formRef.current.setFieldsValue({menuIds, ...fieldsValue});
                 this.onPidChange(menu.pid);
             }
         });
@@ -164,7 +164,7 @@ class MenuEdit extends Component {
      */
     getPids = () => {
         let pids = '';
-        const pMenu = this.state.menuArray.find(menu => this.props.form.getFieldValue('pid') === menu.id);
+        const pMenu = this.state.menuArray.find(menu => this.formRef.current.getFieldValue('pid') === menu.id);
         if (pMenu) {
             pids = pMenu.pids ? pMenu.pids + ',' + pMenu.id : pMenu.id;
         }
@@ -200,7 +200,7 @@ class MenuEdit extends Component {
     };
 
     onClickIconModalOk = (icon) => {
-        this.props.form.setFieldsValue({icon});
+        this.formRef.current.setFieldsValue({icon});
         formFields.forEach(field => {
             if (field.key === 'icon') {
                 field.icon = icon;
@@ -211,9 +211,7 @@ class MenuEdit extends Component {
 
     handleTagClose = (button) => {
         const menu = this.state.menu;
-        console.log('menu', menu.buttons);
         menu.buttons = menu.buttons.filter(b => b !== button);
-        console.log('menu', menu.buttons);
         this.setState({menu});
     };
 
@@ -224,7 +222,7 @@ class MenuEdit extends Component {
                 <Divider/>
 
                 <FormItem colon={false} label={' '}>
-                    <Button icon={<PlusOutlined />} onClick={this.openButtonModal}>
+                    <Button icon={<PlusOutlined/>} onClick={this.openButtonModal}>
                         添加按钮
                     </Button>
                 </FormItem>
@@ -238,7 +236,6 @@ class MenuEdit extends Component {
 
     renderTags = () => {
         const buttons = this.state.menu.buttons;
-        console.log('renderTags', buttons);
         return buttons.map((button, index) => (
                 <Tag key={button.buttonName}
                      onClose={event => {
@@ -258,6 +255,7 @@ class MenuEdit extends Component {
     render() {
         return (
             <EditModal
+                ref={this.formRef}
                 {...this.props}
                 onRef={ref => this.editModalRef = ref}
                 formFields={formFields}
@@ -274,4 +272,3 @@ class MenuEdit extends Component {
     }
 }
 
-export default Form.useForm(MenuEdit);

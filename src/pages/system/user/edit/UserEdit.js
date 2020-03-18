@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
-import { TreeSelect } from 'antd';
+
+import {Form, TreeSelect} from 'antd';
 
 import './UserEdit.css';
 
@@ -17,7 +16,7 @@ import {User} from '../user.model';
 const FormItem = Form.Item;
 
 
-class UserEdit extends Component {
+export default class UserEdit extends Component {
 
     static propTypes = {
         a: PropTypes.object,
@@ -30,6 +29,8 @@ class UserEdit extends Component {
         headPictureUrl: null,
         editModelKey: 0,
     };
+
+    formRef = React.createRef();
 
     componentDidMount() {
         // 让父组件可以调用方法,父组件必须有props：onFef，否则报错
@@ -85,7 +86,7 @@ class UserEdit extends Component {
             fieldsValue[field.key] = user[field.key];
         });
         const roles = user.roles.map(role => role.id);
-        this.props.form.setFieldsValue({roles, ...fieldsValue});
+        this.formRef.current.setFieldsValue({roles, ...fieldsValue});
     };
 
     openModal = () => {
@@ -136,10 +137,11 @@ class UserEdit extends Component {
     };
 
     render() {
-        const {getFieldDecorator} = this.props.form;
+
         return (
             <EditModal
                 {...this.props}
+                ref={this.formRef}
                 onRef={ref => this.editModalRef = ref}
                 formFields={formFields}
                 saveCallback={this.save}
@@ -150,9 +152,8 @@ class UserEdit extends Component {
                         onSuccess={this.onUploadSuccess}
                     />
                 </FormItem>
-                <FormItem label='角色'>
+                <FormItem label='角色' name='roles'>
                     {
-                        getFieldDecorator('roles')
                         (
                             <TreeSelect
                                 treeCheckable={true}
@@ -168,4 +169,3 @@ class UserEdit extends Component {
     }
 }
 
-export default Form.useForm(UserEdit);

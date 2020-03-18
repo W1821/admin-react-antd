@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
-import { Alert, Button, Checkbox, Col, Layout, Row, Spin } from 'antd';
+import {Alert, Button, Checkbox, Col, Form, Layout, Row, Spin} from 'antd';
 import {BasicForm} from '../../components';
 
 import './Login.css';
@@ -16,19 +14,19 @@ const FormItem = Form.Item;
 const Content = Layout.Content;
 
 
-class Login extends Component {
+export default class Login extends Component {
     state = {
         errorMsg: false,
         loading: false,
     };
 
+    formRef = React.createRef();
 
     componentDidMount() {
         // enter事件
         document.addEventListener('keydown', this.handleEnterKey);
-
         // 为了测试，增加账号 密码
-        this.props.form.setFieldsValue({userName: '15256639988', password: '1'});
+        this.formRef.current.setFieldsValue({userName: '15256639988', password: '1'});
     }
 
     componentWillUnmount() {
@@ -48,13 +46,13 @@ class Login extends Component {
      */
     login = (e) => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
+        this.formRef.current.validateFields()
+            .then(values => {
                 // 转圈开始
                 this.setState({loading: true});
                 loginService.login(values.userName, values.password).then(this.handleLogin);
-            }
-        });
+            })
+            .catch(() => null);
     };
 
     handleLogin = (response) => {
@@ -125,7 +123,11 @@ class Login extends Component {
                     {/* 登录表单 */}
                     <Row type='flex' align='middle'>
                         <Col xxl={{span: 4, push: 10}} sm={{span: 6, push: 9}} xs={{span: 16, push: 4}}>
-                            <BasicForm formFields={formFields} formItemLayout={{}} showLabel={false} {...this.props} >
+                            <BasicForm ref={this.formRef}
+                                       formFields={formFields}
+                                       formItemLayout={{}}
+                                       showLabel={false}
+                                       {...this.props} >
                                 <FormItem>
                                     <Checkbox>自动登录</Checkbox>
                                     <Button type='primary' onClick={this.login} className='login-form-button'>
@@ -140,5 +142,3 @@ class Login extends Component {
         );
     }
 }
-
-export default Form.useForm(Login);

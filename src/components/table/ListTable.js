@@ -78,7 +78,6 @@ class ListTable extends React.Component {
 
     /**
      * 处理成功返回数据
-     * @param response
      */
     loadSuccess = response => {
         // 加载圈结束
@@ -99,7 +98,7 @@ class ListTable extends React.Component {
         });
     };
 
-    loadError = response => {
+    loadError = () => {
         // 加载圈结束
         this.setState({loading: false});
     };
