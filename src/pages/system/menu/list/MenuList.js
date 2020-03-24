@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { PlusOutlined } from '@ant-design/icons';
+import {PlusOutlined} from '@ant-design/icons';
 import {Button, Table} from 'antd';
 import MenuEdit from '../edit/MenuEdit';
 import {TableOperationColumn} from '../../../../components';
@@ -132,7 +132,13 @@ class MenuList extends Component {
         return (
             <div>
 
-                {add ? <Button className='add-button' type='dashed' icon={<PlusOutlined />} onClick={this.add}>添加</Button> : null}
+                {
+                    add ?
+                        <Button className='add-button' type='dashed' icon={<PlusOutlined/>} onClick={this.add}>
+                            添加
+                        </Button>
+                        : null
+                }
 
                 <Table
                     columns={tableColumns}
