@@ -1,6 +1,6 @@
 import React from 'react';
 import {Form} from 'antd';
-import { Icon } from '@ant-design/compatible';
+import {Icon} from '@ant-design/compatible';
 import {Cascader, Checkbox, DatePicker, Input, Radio, Select, TimePicker} from 'antd';
 import PropTypes from 'prop-types';
 
@@ -26,8 +26,6 @@ class BasicForm extends React.Component {
     formRef = React.createRef();
 
     componentDidMount() {
-        // 让父组件可以调用方法,父组件必须有props：onFef，否则报错
-        // this.props.onRef(this);
     }
 
     componentWillUnmount() {
@@ -51,7 +49,9 @@ class BasicForm extends React.Component {
         const {type, inputType, inputId, placeholder, icon, options, loadData, onChange, onSearch} = field;
         switch (type) {
             case 'input':
-                return <Input type={inputType} id={inputId} prefix={<Icon type={icon}/>}
+                return <Input type={inputType}
+                              id={inputId}
+                              prefix={<Icon type={icon}/>}
                               placeholder={placeholder}/>;
             case 'search':
                 return (
@@ -86,8 +86,8 @@ class BasicForm extends React.Component {
                                 onChange(value, option);
                             }
                         }}
-                        style={{minWidth: '100px'}}
-                    >
+                        style={{minWidth: '100px'}}>
+
                         {
                             options.map(({label, value}) => (
                                 <Option value={value} key={label}>
@@ -95,6 +95,7 @@ class BasicForm extends React.Component {
                                 </Option>
                             ))
                         }
+
                     </Select>
                 );
 
