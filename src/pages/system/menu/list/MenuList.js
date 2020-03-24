@@ -134,7 +134,7 @@ class MenuList extends Component {
 
                 {
                     add ?
-                        <Button className='add-button' type='dashed' icon={<PlusOutlined/>} onClick={this.add}>
+                        <Button className='add-btn' type='dashed' icon={<PlusOutlined/>} onClick={this.add}>
                             添加
                         </Button>
                         : null

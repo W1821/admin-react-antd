@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { PlusOutlined } from '@ant-design/icons';
+import {PlusOutlined} from '@ant-design/icons';
 import {Button} from 'antd';
 import {ListTable, TableOperationColumn, SearchForm} from '../../../../components';
 import UserEdit from '../edit/UserEdit';
@@ -109,7 +109,7 @@ class UserList extends Component {
 
                 {search ? <SearchForm formFields={formFields} onSearch={this.search}/> : null}
 
-                {add ? <Button className='add-button' type='dashed' icon={<PlusOutlined />} onClick={this.add}>添加</Button> : null}
+                {add ? <Button className='add-btn' type='dashed' icon={<PlusOutlined/>} onClick={this.add}>添加</Button> : null}
 
                 <ListTable
                     dataSourceUrl='/user/list'
