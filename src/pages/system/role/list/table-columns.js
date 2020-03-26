@@ -5,6 +5,7 @@ const columns = [
     {
         dataIndex: 'roleName',
         title: '角色名',
+        sorter: true,
     },
     {
         dataIndex: 'description',
