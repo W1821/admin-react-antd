@@ -12,9 +12,9 @@ export default class ServerResponse {
         // 判断返回结果类型
         switch (typeof response) {
             case 'object':
-                this.success = response.errorCode === 0;
-                this.code = response.errorCode;
-                this.msg = response.errorMsg || '未知错误';
+                this.success = response.code === 0;
+                this.code = response.code;
+                this.msg = response.msg || '未知错误';
                 this.data = response.data || null;
                 break;
             case 'string':
